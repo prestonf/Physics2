@@ -1,7 +1,11 @@
-# Hey Preston, this is what a single line Python comment looks like.
+# Hey Preston. As you might guess, this is a single line Python comment.
 
 """
-Multi-line comments look like this.
+Multi-line
+comments
+look
+like
+this.
 """
 
 import pygame
