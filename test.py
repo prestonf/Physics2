@@ -1,3 +1,5 @@
+# Class (and other) syntax in action
+
 from math import pi
 
 class Circle:
