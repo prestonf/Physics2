@@ -49,8 +49,8 @@ while True:
 			x = event.dict['pos'][0]
 			y = event.dict['pos'][1]
 			
-			# Until Preston implements the Ball class, balls are just position
-			# coordinates and a y-axis velocity.
+			# Until Preston implements the Ball class, balls are just lists
+			# consisting of position coordinates and a y-axis velocity.
 			balls.append([x,y,1])
 
 		elif event.type == pygame.QUIT:
