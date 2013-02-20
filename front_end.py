@@ -12,13 +12,22 @@ import pygame
 
 SIZE = 640, 480  # The dimensions, in pixels, of the display window
 FRAME_RATE = 30  # The number of frames that will be drawn each second
+RADIUS = 10
 
 BACKGROUND_COLOR = pygame.color.THECOLORS['lightskyblue']
 CIRCLE_COLOR = pygame.color.THECOLORS['white']
 
 # This is just a placeholder for Preston's update code
 def update_position(ball, frame_rate):
-	return [x,y]
+	# If a ball reaches the edge of the screen, negate its velocity so that it
+	# moves in the other direction.
+	if (ball[1] - RADIUS < 0) or (ball[1] + RADIUS > SIZE[1]):
+		ball[2] = -ball[2]
+	
+	# Update the position of the ball using its velocity
+	ball[1] = ball[1] + ball[2]
+	
+	return ball
 
 # The pygame library is special in that it's not ready to use immediately upon
 # import, but requires this call to finish setting up.
@@ -40,9 +49,9 @@ while True:
 			x = event.dict['pos'][0]
 			y = event.dict['pos'][1]
 			
-			# Until Preston implements the Ball class, balls are
-			# just position coordinates.
-			balls.append([x,y])
+			# Until Preston implements the Ball class, balls are just position
+			# coordinates and a y-axis velocity.
+			balls.append([x,y,1])
 
 		elif event.type == pygame.QUIT:
 			exit(0)
@@ -53,10 +62,10 @@ while True:
 	for i in range(len(balls)):
 		# Update ball positions
 		balls[i] = update_position(balls[i], FRAME_RATE)
-
-		# Get ready to draw a white ball of border width 1 and radius 20
-		# to the screen, centered at the given position.
-		pygame.draw.circle(screen, CIRCLE_COLOR, balls[i], 20, 1)
+		
+		# Get ready to draw a white ball of border width 1 and the given 
+		# radius to the screen, centered at the given position.
+		pygame.draw.circle(screen, CIRCLE_COLOR, balls[i][:2], 2*RADIUS, 1)
 	
 	pygame.display.update()  # Done getting ready. Redraw the display.
 
